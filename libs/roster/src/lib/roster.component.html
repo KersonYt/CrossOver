@@ -1,0 +1,27 @@
+<!-- src/app/tabla-datos/tabla-datos.component.html -->
+<div class="header">
+  Conduit Roster
+</div>
+
+<div class="center-table">
+  <table border="1">
+    <thead>
+      <tr>
+        <th>User name</th>
+        <th>Articles authored</th>
+        <th>Likes count</th>
+        <th>First article date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dato of datos">
+        <td>
+          <a href="#" (click)="redirectToProfile(dato.username); $event.preventDefault()">{{ dato.username }}</a>
+        </td>
+        <td>{{ dato.authoredArticles }}</td>
+        <td>{{ dato.likes }}</td>
+        <td>{{ dato.firstArticleDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
