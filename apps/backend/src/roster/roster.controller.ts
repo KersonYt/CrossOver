@@ -12,5 +12,4 @@ export class RosterController {
   async getProfiles(): Promise<any[]> {
     return this.rosterService.getRoster();
   }
-
 }

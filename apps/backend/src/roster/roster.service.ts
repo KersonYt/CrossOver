@@ -4,37 +4,39 @@ import { User } from '../user/user.entity';
 
 @Injectable()
 export class RosterService {
-    constructor(
-        private readonly em: EntityManager,
-    ) { }
+  constructor(private readonly em: EntityManager) {}
 
-    async getRoster(): Promise<any[]> {
-        const users = await this.em.find(User, {}, { 
-            populate: ['articles']
-        });
+  async getRoster(): Promise<any[]> {
+    const users = await this.em.find(
+      User,
+      {},
+      {
+        populate: ['articles'],
+      },
+    );
 
-        const results = [];
+    const results = [];
 
-        for (const user of users) {
-            const articles = user.articles.getItems();
+    for (const user of users) {
+      const articles = user.articles.getItems();
 
-            const authoredArticles = articles.length;
-            
-            const likes = articles.reduce((sum, article) => sum + article.favoritesCount, 0);
+      const authoredArticles = articles.length;
 
-            articles.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
-            const firstArticleDate = articles.length ? articles[0].createdAt : null;
+      const likes = articles.reduce((sum, article) => sum + article.favoritesCount, 0);
 
-            results.push({
-                username: user.username,
-                authoredArticles: authoredArticles,
-                likes: likes,
-                firstArticleDate: firstArticleDate?.toLocaleDateString()
-            });
-        }
+      articles.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+      const firstArticleDate = articles.length ? articles[0].createdAt : null;
 
-        results.sort((a, b) => b.likes - a.likes);
-
-        return results;
+      results.push({
+        username: user.username,
+        authoredArticles: authoredArticles,
+        likes: likes,
+        firstArticleDate: firstArticleDate?.toLocaleDateString(),
+      });
     }
+
+    results.sort((a, b) => b.likes - a.likes);
+
+    return results;
+  }
 }

@@ -8,16 +8,15 @@ import { ChangeDetectorRef } from '@angular/core';
   selector: 'app-tabla-datos',
   templateUrl: './roster.component.html',
   styleUrls: ['./roster.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class RosterTableComponent implements OnInit {
-
   datos = [];
 
-  constructor(private rosterActionsService: RosterActionsService, private cdr: ChangeDetectorRef) { }
+  constructor(private rosterActionsService: RosterActionsService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.rosterActionsService.fetchRosterData().subscribe(data => {
+    this.rosterActionsService.fetchRosterData().subscribe((data) => {
       this.datos = data;
       this.cdr.detectChanges();
     });
@@ -26,5 +25,4 @@ export class RosterTableComponent implements OnInit {
   redirectToProfile(username: string) {
     window.location.href = `http://localhost:4200/profile/${encodeURIComponent(username)}`;
   }
-
 }

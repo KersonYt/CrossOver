@@ -51,9 +51,9 @@ export const appConfig: ApplicationConfig = {
       },
       {
         path: 'roster',
-        loadComponent: () => 
+        loadComponent: () =>
           import('@realworld/roster/src/feature-roster').then((roster) => roster.RosterTableComponent),
-      }
+      },
     ]),
     provideStore({
       auth: authFeature.reducer,

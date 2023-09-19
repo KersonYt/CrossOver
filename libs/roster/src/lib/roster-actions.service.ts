@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RosterActionsService {
-
   private apiUrl = 'http://localhost:3000/api/roster-profiles/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   fetchRosterData(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
