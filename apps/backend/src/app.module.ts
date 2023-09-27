@@ -12,7 +12,15 @@ import { ArticleCoauthorsModule } from './user/coauthor/coauthor.module';
 import ormConfig from '../mikro-orm.config';
 @Module({
   controllers: [AppController],
-  imports: [MikroOrmModule.forRoot(ormConfig), ArticleModule, UserModule, ProfileModule, TagModule, RosterModule, ArticleCoauthorsModule],
+  imports: [
+    MikroOrmModule.forRoot(ormConfig),
+    ArticleModule,
+    UserModule,
+    ProfileModule,
+    TagModule,
+    RosterModule,
+    ArticleCoauthorsModule,
+  ],
   providers: [],
 })
 export class AppModule implements NestModule, OnModuleInit {

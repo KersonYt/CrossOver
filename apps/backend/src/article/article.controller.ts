@@ -9,7 +9,7 @@ import { CreateArticleDto, CreateCommentDto } from './dto';
 @ApiTags('articles')
 @Controller('articles')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) { }
+  constructor(private readonly articleService: ArticleService) {}
 
   @ApiOperation({ summary: 'Get all articles' })
   @ApiResponse({ status: 200, description: 'Return all articles.' })
@@ -115,5 +115,4 @@ export class ArticleController {
   async lockArticle(@User('id') userId: number, @Param('slug') slug: string) {
     return this.articleService.lockArticle(userId, slug);
   }
-
 }

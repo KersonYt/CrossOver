@@ -26,7 +26,6 @@ export class ArticleMetaComponent {
   @Output() unfollowCoauthor: EventEmitter<string> = new EventEmitter<string>();
   @Output() lockAndEdit: EventEmitter<string> = new EventEmitter<string>();
 
-
   toggleFavorite() {
     if (this.article.favorited) {
       this.unfavorite.emit(this.article.slug);
@@ -50,10 +49,8 @@ export class ArticleMetaComponent {
       this.followCoauthor.emit(coauthor.username);
     }
   }
-  
 
   deleteArticle() {
     this.delete.emit(this.article.slug);
   }
-
 }

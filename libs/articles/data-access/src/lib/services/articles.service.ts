@@ -7,7 +7,7 @@ import { HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {}
 
   getArticle(slug: string): Observable<ArticleResponse> {
     return this.apiService.get<ArticleResponse>('/articles/' + slug);

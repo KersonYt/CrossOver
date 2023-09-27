@@ -99,7 +99,7 @@ export const articleFeature = createFeature({
       data: { ...state.data, coauthor: articleInitialState.data.coauthors },
     })),
     on(articleActions.followCoauthorSuccess, articleActions.unfollowCoauthorSuccess, (state, action) => {
-      const updatedCoauthors = state.data.coauthors.map(coauthor => {
+      const updatedCoauthors = state.data.coauthors.map((coauthor) => {
         if (coauthor.username === action.profile.username) {
           return action.profile;
         }
@@ -116,6 +116,6 @@ export const articleFeature = createFeature({
     on(articleActions.unlockArticleSuccess, (state) => ({
       ...state,
       data: { ...state.data, isLocked: false, lockedBy: null },
-    }))
+    })),
   ),
 });

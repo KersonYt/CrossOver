@@ -175,7 +175,8 @@ export const lockArticle$ = createEffect(
             return articleActions.lockArticleSuccess({ user: response.article.author });
           }),
           catchError((error) => {
-            if (error.code === 'ARTICLE_LOCKED') { // Asumiendo que el servidor devuelve un código específico para artículos bloqueados
+            if (error.code === 'ARTICLE_LOCKED') {
+              // Asumiendo que el servidor devuelve un código específico para artículos bloqueados
               alert('The article is locked by another user. Please, try again later'); // Usar un servicio de alerta o una acción dedicada podría ser mejor
             }
             return of(articleActions.lockArticleFailure(error));
@@ -186,8 +187,6 @@ export const lockArticle$ = createEffect(
   },
   { functional: true },
 );
-
-
 
 export const unlockArticle$ = createEffect(
   (actions$ = inject(Actions), articlesService = inject(ArticlesService)) => {
@@ -203,4 +202,3 @@ export const unlockArticle$ = createEffect(
   },
   { functional: true },
 );
-

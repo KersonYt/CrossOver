@@ -47,27 +47,25 @@ export class ArticleComponent implements OnInit, OnDestroy {
   currentUser$ = this.store.select(selectUser);
   touchedForm$ = this.store.select(ngrxFormsQuery.selectTouched);
 
-  constructor(private readonly store: Store, private router: Router) { }
+  constructor(private readonly store: Store, private router: Router) {}
 
   ngOnInit() {
     this.store.dispatch(formsActions.setStructure({ structure }));
     this.store.dispatch(formsActions.setData({ data: '' }));
 
     // Suscribirse al artículo y usuario actual
-    combineLatest([
-      this.article$,
-      this.currentUser$,
-      this.store.select(selectAuthState)
-    ])
+    combineLatest([this.article$, this.currentUser$, this.store.select(selectAuthState)])
       .pipe(
         filter(([, , auth]) => auth.loggedIn),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe(([article, currentUser]) => {
         this.articleShown = article;
         this.currentUser = currentUser;
         this.isMainAuthor = this.articleShown?.author?.username === this.currentUser?.username;
-        this.isCoauthor = this.articleShown?.coauthors?.some((coauthor: { username: string }) => coauthor.username === this.currentUser?.username);
+        this.isCoauthor = this.articleShown?.coauthors?.some(
+          (coauthor: { username: string }) => coauthor.username === this.currentUser?.username,
+        );
         this.canModify = this.isAuthorOrCoauthor();
       });
   }
@@ -100,9 +98,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
   lockAndEdit(slug: string) {
     // Verificar si el artículo está bloqueado y no por el usuario actual
     if (this.articleShown.isLocked) {
-        // Mostrar un mensaje al usuario
-        alert('This article is being updated by someone else');
-        return;
+      // Mostrar un mensaje al usuario
+      alert('This article is being updated by someone else');
+      return;
     }
 
     // Si no está bloqueado o está bloqueado por el usuario actual, proceder a bloquearlo
@@ -110,7 +108,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     // Navegar a la página de edición
     this.router.navigate(['/editor', slug]);
-}
+  }
 
   unlock(slug: string) {
     this.store.dispatch(articleActions.unlockArticle({ slug }));
@@ -129,11 +127,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
     const isMainAuthor = this.articleShown?.author?.username === this.currentUser?.username;
 
     // Verificar si el usuario actual es un coautor
-    const isCoauthor = this.articleShown?.coauthors?.some((coauthor: { username: string }) => coauthor.username === this.currentUser?.username);
+    const isCoauthor = this.articleShown?.coauthors?.some(
+      (coauthor: { username: string }) => coauthor.username === this.currentUser?.username,
+    );
 
     return isMainAuthor || isCoauthor;
   }
-
 
   ngOnDestroy() {
     this.store.dispatch(articleActions.initializeArticle());

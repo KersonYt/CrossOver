@@ -14,7 +14,12 @@ import { ArticleCoauthorsModule } from '../user/coauthor/coauthor.module';
 
 @Module({
   controllers: [ArticleController],
-  imports: [MikroOrmModule.forFeature({ entities: [Article, Comment, User, Tag, ArticleCoauthors] }), UserModule, TagModule, ArticleCoauthorsModule],
+  imports: [
+    MikroOrmModule.forFeature({ entities: [Article, Comment, User, Tag, ArticleCoauthors] }),
+    UserModule,
+    TagModule,
+    ArticleCoauthorsModule,
+  ],
   providers: [ArticleService],
 })
 export class ArticleModule implements NestModule {

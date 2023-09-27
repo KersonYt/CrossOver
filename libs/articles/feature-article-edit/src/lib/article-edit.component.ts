@@ -53,7 +53,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   data$ = this.store.select(ngrxFormsQuery.selectData);
   showCoAuthors = false;
 
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
     this.store.dispatch(formsActions.setStructure({ structure: this.getStructure() }));
@@ -67,7 +67,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
         // Convert coauthors array to string and set it in the form data
         let formData = {
           ...article,
-          coAuthors: article?.coauthors?.length ? this.coauthorsToString(article.coauthors) : ''
+          coAuthors: article?.coauthors?.length ? this.coauthorsToString(article.coauthors) : '',
         };
 
         // Update the form data with the modified data
@@ -126,7 +126,7 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
   }
 
   coauthorsToString(coauthors: any[]): string {
-    return coauthors.map(coauthor => coauthor.email).join(', ');
+    return coauthors.map((coauthor) => coauthor.email).join(', ');
   }
 
   ngOnDestroy() {

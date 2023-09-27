@@ -26,10 +26,10 @@ export class ArticleService {
     private readonly tagRepository: EntityRepository<Tag>,
     @InjectRepository(ArticleCoauthors)
     private readonly coauthorRepository: EntityRepository<ArticleCoauthors>,
-  ) { }
+  ) {}
 
   async findAll(userId: number, query: Record<string, string>): Promise<IArticlesRO> {
-    console.log("Second part");
+    console.log('Second part');
     const user = userId
       ? await this.userRepository.findOne(userId, { populate: ['followers', 'favorites'] })
       : undefined;
@@ -223,7 +223,7 @@ export class ArticleService {
         console.log(coauthorUser);
         if (coauthorUser) {
           const coauthor = new ArticleCoauthors(coauthorUser, article);
-          await this.coauthorRepository.persist(coauthor);  // Saving the new coauthor relationship
+          await this.coauthorRepository.persist(coauthor); // Saving the new coauthor relationship
         }
       }
 
@@ -259,7 +259,6 @@ export class ArticleService {
     return { article: article.toJSON() };
   }
 
-
   async unlockArticle(userId: number, slug: string): Promise<IArticleRO> {
     const user = await this.userRepository.findOneOrFail(userId);
     const article = await this.articleRepository.findOneOrFail({ slug });
@@ -272,9 +271,7 @@ export class ArticleService {
 
     return { article: article.toJSON() };
   }
-
 }
-
 
 function formatToMySQLDateTime(dateString: string): string {
   const date = new Date(dateString);

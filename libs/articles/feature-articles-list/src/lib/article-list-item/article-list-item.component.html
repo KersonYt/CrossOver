@@ -13,7 +13,7 @@
         {{ article.createdAt | date : 'longDate' }}
       </span>
     </div>
-    
+
     <!-- Coauthors -->
     <ng-container *ngFor="let coauthor of article.coauthors">
       <a>
@@ -25,10 +25,10 @@
         </a>
       </div>
     </ng-container>
-  
+
     <!-- The rest of your template remains unchanged... -->
   </div>
-  
+
   <a (click)="navigateToArticle.emit(article.slug)" class="preview-link">
     <h1 data-e2e-id="article-list-title">{{ article.title }}</h1>
     <p>{{ article.description }}</p>

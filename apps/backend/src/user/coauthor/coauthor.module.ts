@@ -6,6 +6,6 @@ import { ArticleCoauthorsService } from './coauthor.service';
 @Module({
   imports: [MikroOrmModule.forFeature([ArticleCoauthors])],
   providers: [ArticleCoauthorsService],
-  exports: [ArticleCoauthorsService]
+  exports: [ArticleCoauthorsService],
 })
 export class ArticleCoauthorsModule {}

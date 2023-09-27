@@ -26,7 +26,7 @@ export class DatabaseSeeder extends Seeder {
         favoritesCount: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
-        isLocked: false // Añade esta propiedad
+        isLocked: false, // Añade esta propiedad
       }),
       em.create(Article, {
         author: authors.zolly,
@@ -38,10 +38,10 @@ export class DatabaseSeeder extends Seeder {
         favoritesCount: 7,
         createdAt: new Date(),
         updatedAt: new Date(),
-        isLocked: false // Añade esta propiedad
+        isLocked: false, // Añade esta propiedad
       }),
     ];
-    
+
     em.persist(articles);
   }
 

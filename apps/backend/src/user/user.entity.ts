@@ -57,7 +57,7 @@ export class User {
   @OneToMany(() => Article, (article) => article.author, { hidden: true })
   articles = new Collection<Article>(this);
 
-  @ManyToMany(() => Article, article => article.coauthors)
+  @ManyToMany(() => Article, (article) => article.coauthors)
   coauthoredArticles = new Collection<Article>(this);
 
   constructor(username: string, email: string, password: string) {

@@ -1,9 +1,9 @@
 .author-block {
-    display: block;
-    clear: both;  /* This ensures each block starts on a new line */
-    margin-bottom: 1rem; 
-  }
+  display: block;
+  clear: both; /* This ensures each block starts on a new line */
+  margin-bottom: 1rem;
+}
 
-  .author + .btn.btn-sm.btn-outline-secondary {
-    margin-left: 10px;
-  }
+.author + .btn.btn-sm.btn-outline-secondary {
+  margin-left: 10px;
+}
