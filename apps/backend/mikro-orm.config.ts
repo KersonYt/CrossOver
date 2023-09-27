@@ -11,6 +11,7 @@ import { Tag } from './src/tag/tag.entity';
 import { Article } from './src/article/article.entity';
 import { Comment } from './src/article/comment.entity';
 import { InitialMigration } from './src/migrations/InitialMigration';
+import { ArticleCoauthors } from './src/user/coauthor/coauthor.entity';
 
 export default defineConfig({
   host: 'localhost',
@@ -26,7 +27,7 @@ export default defineConfig({
       },
     ],
   },
-  entities: [User, Tag, Article, Comment],
+  entities: [User, Tag, Article, Comment, ArticleCoauthors],
   discovery: { disableDynamicFileAccess: true },
   seeder: {
     pathTs: join(__dirname, 'src', 'seeders'),

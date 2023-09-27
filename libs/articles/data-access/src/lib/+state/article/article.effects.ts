@@ -133,3 +133,74 @@ export const deleteArticleSuccess$ = createEffect(
   },
   { functional: true, dispatch: false },
 );
+
+export const followCoauthor$ = createEffect(
+  (actions$ = inject(Actions), actionsService = inject(ActionsService)) => {
+    return actions$.pipe(
+      ofType(articleActions.followCoauthor), // Asumiendo que ya tienes una acción definida followCoauthor en articleActions
+      concatMap(({ username }) =>
+        actionsService.followCoauthor(username).pipe(
+          map((response) => articleActions.followCoauthorSuccess({ profile: response.profile })),
+          catchError((error) => of(articleActions.followCoauthorFailure(error))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+export const unfollowCoauthor$ = createEffect(
+  (actions$ = inject(Actions), actionsService = inject(ActionsService)) => {
+    return actions$.pipe(
+      ofType(articleActions.unfollowCoauthor), // Asumiendo que ya tienes una acción definida unfollowCoauthor en articleActions
+      concatMap(({ username }) =>
+        actionsService.unfollowCoauthor(username).pipe(
+          map((response) => articleActions.unfollowCoauthorSuccess({ profile: response.profile })),
+          catchError((error) => of(articleActions.unfollowCoauthorFailure(error))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+export const lockArticle$ = createEffect(
+  (actions$ = inject(Actions), articlesService = inject(ArticlesService), router = inject(Router)) => {
+    return actions$.pipe(
+      ofType(articleActions.lockArticle),
+      concatMap((action) =>
+        articlesService.lockArticle(action.slug).pipe(
+          map((response) => {
+            router.navigate(['/editor', action.slug]);
+            return articleActions.lockArticleSuccess({ user: response.article.author });
+          }),
+          catchError((error) => {
+            if (error.code === 'ARTICLE_LOCKED') { // Asumiendo que el servidor devuelve un código específico para artículos bloqueados
+              alert('The article is locked by another user. Please, try again later'); // Usar un servicio de alerta o una acción dedicada podría ser mejor
+            }
+            return of(articleActions.lockArticleFailure(error));
+          }),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+
+
+
+export const unlockArticle$ = createEffect(
+  (actions$ = inject(Actions), articlesService = inject(ArticlesService)) => {
+    return actions$.pipe(
+      ofType(articleActions.unlockArticle),
+      concatMap((action) =>
+        articlesService.unlockArticle(action.slug).pipe(
+          map(() => articleActions.unlockArticleSuccess()),
+          catchError((error) => of(articleActions.unlockArticleFailure(error))),
+        ),
+      ),
+    );
+  },
+  { functional: true },
+);
+

@@ -7,7 +7,7 @@ import { HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   getArticle(slug: string): Observable<ArticleResponse> {
     return this.apiService.get<ArticleResponse>('/articles/' + slug);
@@ -45,6 +45,14 @@ export class ArticlesService {
       });
     }
     return this.apiService.post<ArticleResponse, ArticleResponse>('/articles/', { article: article });
+  }
+
+  lockArticle(slug: string): Observable<ArticleResponse> {
+    return this.apiService.post<ArticleResponse, void>('/articles/' + slug + '/lock');
+  }
+
+  unlockArticle(slug: string): Observable<ArticleResponse> {
+    return this.apiService.delete<ArticleResponse>('/articles/' + slug + '/unlock');
   }
 
   // TODO: remove any

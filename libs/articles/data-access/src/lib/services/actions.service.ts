@@ -5,7 +5,7 @@ import { ApiService } from '@realworld/core/http-client';
 
 @Injectable({ providedIn: 'root' })
 export class ActionsService {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   followUser(username: string): Observable<ProfileResponse> {
     return this.apiService.post<ProfileResponse, void>('/profiles/' + username + '/follow');
@@ -22,4 +22,13 @@ export class ActionsService {
   unfavorite(slug: string): Observable<ArticleResponse> {
     return this.apiService.delete<ArticleResponse>('/articles/' + slug + '/favorite');
   }
+
+  followCoauthor(username: string): Observable<ProfileResponse> {
+    return this.apiService.post<ProfileResponse, void>('/profiles/' + username + '/follow');
+  }
+
+  unfollowCoauthor(username: string): Observable<ProfileResponse> {
+    return this.apiService.delete<ProfileResponse>('/profiles/' + username + '/follow');
+  }
+
 }

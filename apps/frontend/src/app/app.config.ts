@@ -10,7 +10,6 @@ import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { API_URL } from '@realworld/core/http-client';
 import { environment } from '../environments/environment';
-import { RosterTableComponent } from '@realworld/roster/src/feature-roster';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter([

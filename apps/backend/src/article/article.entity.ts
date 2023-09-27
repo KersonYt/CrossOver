@@ -5,6 +5,7 @@ import {
   EntityDTO,
   ManyToOne,
   OneToMany,
+  ManyToMany,
   PrimaryKey,
   Property,
   wrap,
@@ -43,8 +44,20 @@ export class Article {
   @ManyToOne(() => User)
   author: User;
 
+  @ManyToMany(() => User)
+  coauthors = new Collection<User>(this);
+
   @OneToMany(() => Comment, (comment) => comment.article, { eager: true, orphanRemoval: true })
   comments = new Collection<Comment>(this);
+
+  @Property({ type: 'boolean', columnType: 'tinyint', default: false, fieldName: 'isLocked' })
+  isLocked = false;
+
+  @ManyToOne({ entity: () => User, nullable: true, fieldName: 'lockedBy' })
+  lockedBy: User | null;
+
+  @Property({ type: 'date', nullable: true, fieldName: 'lockedAt' })
+  lockedAt: Date | null;
 
   @Property({ type: 'number' })
   favoritesCount = 0;

@@ -9,7 +9,7 @@ import { CreateArticleDto, CreateCommentDto } from './dto';
 @ApiTags('articles')
 @Controller('articles')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleService: ArticleService) { }
 
   @ApiOperation({ summary: 'Get all articles' })
   @ApiResponse({ status: 200, description: 'Return all articles.' })
@@ -53,8 +53,14 @@ export class ArticleController {
     @Param() params: Record<string, string>,
     @Body('article') articleData: CreateArticleDto,
   ) {
-    // Todo: update slug also when title gets changed
-    return this.articleService.update(+user, params.slug, articleData);
+    // Actualizar el artículo
+    const updatedArticle = await this.articleService.update(+user, params.slug, articleData);
+
+    // Desbloquear el artículo
+    await this.articleService.unlockArticle(+user, params.slug);
+
+    // Devolver el artículo actualizado
+    return updatedArticle;
   }
 
   @ApiOperation({ summary: 'Delete article' })
@@ -101,4 +107,13 @@ export class ArticleController {
   async unFavorite(@User('id') userId: number, @Param('slug') slug: string) {
     return this.articleService.unFavorite(userId, slug);
   }
+
+  @ApiOperation({ summary: 'Lock an article for editing' })
+  @ApiResponse({ status: 200, description: 'The article has been successfully locked.' })
+  @ApiResponse({ status: 403, description: 'Forbidden or Article already locked.' })
+  @Post(':slug/lock')
+  async lockArticle(@User('id') userId: number, @Param('slug') slug: string) {
+    return this.articleService.lockArticle(userId, slug);
+  }
+
 }

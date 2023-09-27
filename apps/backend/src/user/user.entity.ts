@@ -57,6 +57,9 @@ export class User {
   @OneToMany(() => Article, (article) => article.author, { hidden: true })
   articles = new Collection<Article>(this);
 
+  @ManyToMany(() => Article, article => article.coauthors)
+  coauthoredArticles = new Collection<Article>(this);
+
   constructor(username: string, email: string, password: string) {
     this.username = username;
     this.email = email;
@@ -67,6 +70,7 @@ export class User {
     const o = wrap<User>(this).toObject() as UserDTO;
     o.image = this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg';
     o.following = user && user.followers.isInitialized() ? user.followers.contains(this) : false; // TODO or followed?
+    o.email = this.email;
 
     return o;
   }

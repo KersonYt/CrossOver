@@ -10,6 +10,12 @@
         (unfavorite)="unfavorite($event)"
         (delete)="delete($event)"
         [canModify]="canModify"
+        [isMainAuthor]="isMainAuthor"
+        [isCoauthor]="isCoauthor"
+        [currentUser]="currentUser"
+        (followCoauthor)="followCoauthor($event)"
+        (unfollowCoauthor)="unfollowCoauthor($event)"
+        (lockAndEdit)="lockAndEdit($event)">
       >
       </cdt-article-meta>
     </div>
@@ -31,6 +37,10 @@
         (unfavorite)="unfavorite($event)"
         (delete)="delete($event)"
         [canModify]="canModify"
+        [isMainAuthor]="isMainAuthor"
+        [isCoauthor]="isCoauthor"
+        [currentUser]="currentUser"
+        (lockAndEdit)="lockAndEdit($event)"
       ></cdt-article-meta>
     </div>
 

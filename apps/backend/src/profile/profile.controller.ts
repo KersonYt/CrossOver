@@ -18,6 +18,14 @@ export class ProfileController {
   @Post(':username/follow')
   @HttpCode(200)
   async follow(@User('email') email: string, @Param('username') username: string): Promise<IProfileRO> {
+    console.log(username);
+    return this.profileService.follow(email, username);
+  }
+
+  @Post(':username/follow')
+  @HttpCode(200)
+  async followCoauthor(@User('email') email: string, @Param('username') username: string): Promise<IProfileRO> {
+    console.log(username);
     return this.profileService.follow(email, username);
   }
 

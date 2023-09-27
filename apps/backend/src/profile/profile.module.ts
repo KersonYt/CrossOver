@@ -5,11 +5,12 @@ import { User } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
 import { ProfileController } from './profile.controller';
 import { ProfileService } from './profile.service';
+import { ArticleCoauthors } from '../user/coauthor/coauthor.entity';
 
 @Module({
   controllers: [ProfileController],
   exports: [],
-  imports: [MikroOrmModule.forFeature({ entities: [User] }), UserModule],
+  imports: [MikroOrmModule.forFeature({ entities: [User, ArticleCoauthors] }), UserModule],
   providers: [ProfileService],
 })
 export class ProfileModule implements NestModule {

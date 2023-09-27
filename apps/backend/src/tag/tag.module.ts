@@ -4,11 +4,12 @@ import { TagController } from './tag.controller';
 import { Tag } from './tag.entity';
 import { TagService } from './tag.service';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { ArticleCoauthors } from '../user/coauthor/coauthor.entity';
 
 @Module({
   controllers: [TagController],
   exports: [],
-  imports: [MikroOrmModule.forFeature({ entities: [Tag] }), UserModule],
+  imports: [MikroOrmModule.forFeature({ entities: [Tag, ArticleCoauthors] }), UserModule],
   providers: [TagService],
 })
 export class TagModule {}

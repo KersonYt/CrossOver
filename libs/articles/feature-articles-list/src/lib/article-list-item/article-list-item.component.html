@@ -1,5 +1,6 @@
 <div class="article-preview">
   <div class="article-meta">
+    <!-- Main author -->
     <a>
       <img [src]="article.author.image" />
     </a>
@@ -7,22 +8,27 @@
       <a data-e2e-id="article-author" class="author" [routerLink]="['/profile', article.author.username]">
         {{ article.author.username }}
       </a>
+      <!-- Date -->
       <span class="date">
         {{ article.createdAt | date : 'longDate' }}
       </span>
     </div>
-    <button
-      [ngClass]="{
-        'btn-outline-primary': !article.favorited,
-        'btn-primary': article.favorited
-      }"
-      class="btn btn-sm pull-xs-right"
-      (click)="toggleFavorite(article)"
-    >
-      <i class="ion-heart"></i>
-      <div class="info">{{ article.favoritesCount }}</div>
-    </button>
+    
+    <!-- Coauthors -->
+    <ng-container *ngFor="let coauthor of article.coauthors">
+      <a>
+        <img [src]="coauthor.image" />
+      </a>
+      <div class="info">
+        <a data-e2e-id="coauthor" class="author" [routerLink]="['/profile', coauthor.username]">
+          {{ coauthor.username }}
+        </a>
+      </div>
+    </ng-container>
+  
+    <!-- The rest of your template remains unchanged... -->
   </div>
+  
   <a (click)="navigateToArticle.emit(article.slug)" class="preview-link">
     <h1 data-e2e-id="article-list-title">{{ article.title }}</h1>
     <p>{{ article.description }}</p>

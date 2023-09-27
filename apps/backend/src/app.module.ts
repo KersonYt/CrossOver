@@ -8,10 +8,11 @@ import { ProfileModule } from './profile/profile.module';
 import { TagModule } from './tag/tag.module';
 import { UserModule } from './user/user.module';
 import { RosterModule } from './roster/roster.module';
+import { ArticleCoauthorsModule } from './user/coauthor/coauthor.module';
 import ormConfig from '../mikro-orm.config';
 @Module({
   controllers: [AppController],
-  imports: [MikroOrmModule.forRoot(ormConfig), ArticleModule, UserModule, ProfileModule, TagModule, RosterModule],
+  imports: [MikroOrmModule.forRoot(ormConfig), ArticleModule, UserModule, ProfileModule, TagModule, RosterModule, ArticleCoauthorsModule],
   providers: [],
 })
 export class AppModule implements NestModule, OnModuleInit {

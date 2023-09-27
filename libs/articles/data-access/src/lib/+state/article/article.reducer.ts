@@ -29,6 +29,15 @@ export const articleInitialState: ArticleState = {
       following: false,
       loading: false,
     },
+    coauthors: [
+      {
+        username: '',
+        bio: '',
+        image: '',
+        following: false,
+        loading: false,
+      },
+    ],
   },
   comments: [],
   loaded: false,
@@ -81,5 +90,32 @@ export const articleFeature = createFeature({
       ...state,
       data: action.article,
     })),
+    on(articleActions.loadArticleCoauthorssSuccess, (state, action) => ({
+      ...state,
+      data: { ...state.data, coauthor: action.coauthors },
+    })),
+    on(articleActions.loadArticleCoauthorssFailure, (state) => ({
+      ...state,
+      data: { ...state.data, coauthor: articleInitialState.data.coauthors },
+    })),
+    on(articleActions.followCoauthorSuccess, articleActions.unfollowCoauthorSuccess, (state, action) => {
+      const updatedCoauthors = state.data.coauthors.map(coauthor => {
+        if (coauthor.username === action.profile.username) {
+          return action.profile;
+        }
+        return coauthor;
+      });
+
+      const data: Article = { ...state.data, coauthors: updatedCoauthors };
+      return { ...state, data };
+    }),
+    on(articleActions.lockArticleSuccess, (state, action) => ({
+      ...state,
+      data: { ...state.data, isLocked: true, lockedBy: action.user },
+    })),
+    on(articleActions.unlockArticleSuccess, (state) => ({
+      ...state,
+      data: { ...state.data, isLocked: false, lockedBy: null },
+    }))
   ),
 });

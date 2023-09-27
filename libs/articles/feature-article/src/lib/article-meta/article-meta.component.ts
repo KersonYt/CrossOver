@@ -14,11 +14,18 @@ export class ArticleMetaComponent {
   @Input() article!: Article;
   @Input() isAuthenticated!: boolean;
   @Input() canModify!: boolean;
+  @Input() isMainAuthor!: boolean;
+  @Input() isCoauthor!: boolean;
+  @Input() currentUser: any;
   @Output() follow: EventEmitter<string> = new EventEmitter<string>();
   @Output() unfollow: EventEmitter<string> = new EventEmitter<string>();
   @Output() unfavorite: EventEmitter<string> = new EventEmitter();
   @Output() favorite: EventEmitter<string> = new EventEmitter();
   @Output() delete: EventEmitter<string> = new EventEmitter();
+  @Output() followCoauthor: EventEmitter<string> = new EventEmitter<string>();
+  @Output() unfollowCoauthor: EventEmitter<string> = new EventEmitter<string>();
+  @Output() lockAndEdit: EventEmitter<string> = new EventEmitter<string>();
+
 
   toggleFavorite() {
     if (this.article.favorited) {
@@ -36,7 +43,17 @@ export class ArticleMetaComponent {
     }
   }
 
+  toggleCoauthorFollow(coauthor: any) {
+    if (coauthor.following) {
+      this.unfollowCoauthor.emit(coauthor.username);
+    } else {
+      this.followCoauthor.emit(coauthor.username);
+    }
+  }
+  
+
   deleteArticle() {
     this.delete.emit(this.article.slug);
   }
+
 }

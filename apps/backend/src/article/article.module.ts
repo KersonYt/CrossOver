@@ -9,10 +9,12 @@ import { ArticleService } from './article.service';
 import { Comment } from './comment.entity';
 import { Tag } from '../tag/tag.entity';
 import { TagModule } from '../tag/tag.module';
+import { ArticleCoauthors } from '../user/coauthor/coauthor.entity';
+import { ArticleCoauthorsModule } from '../user/coauthor/coauthor.module';
 
 @Module({
   controllers: [ArticleController],
-  imports: [MikroOrmModule.forFeature({ entities: [Article, Comment, User, Tag] }), UserModule, TagModule],
+  imports: [MikroOrmModule.forFeature({ entities: [Article, Comment, User, Tag, ArticleCoauthors] }), UserModule, TagModule, ArticleCoauthorsModule],
   providers: [ArticleService],
 })
 export class ArticleModule implements NestModule {

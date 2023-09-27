@@ -5,6 +5,7 @@ import { TagController } from './tag.controller';
 import { Tag } from './tag.entity';
 import { TagService } from './tag.service';
 import { MikroORM } from '@mikro-orm/core';
+import { ArticleCoauthors } from '../user/coauthor/coauthor.entity';
 
 describe('TagController', () => {
   let tagController: TagController;
@@ -13,7 +14,7 @@ describe('TagController', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [MikroOrmModule.forRoot(config), MikroOrmModule.forFeature({ entities: [Tag] })],
+      imports: [MikroOrmModule.forRoot(config), MikroOrmModule.forFeature({ entities: [Tag, ArticleCoauthors] })],
       controllers: [TagController],
       providers: [TagService],
     }).compile();
